@@ -2,4 +2,4 @@ venv/
 __pycache__/
 instance/trekking.db
 *.pyc
-.env
+.env 
