@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Dashboard
+{% endblock %}
+
+{% block content %}
+
+<h2>Welcome {{ current_user.name }}</h2>
+
+<hr>
+
+<h3>Pending Staff Approval</h3>
+
+{% if pending_staff %}
+
+<table class="table table-bordered">
+
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Action</th>
+    </tr>
+
+    {% for staff in pending_staff %}
+
+    <tr>
+        <td>{{ staff.name }}</td>
+        <td>{{ staff.email }}</td>
+        <td>
+            <a href="{{ url_for('admin.approve_staff', user_id=staff.id) }}"
+                class="btn btn-success btn-sm">
+                 Approve
+            </a>
+        </td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% else %}
+
+<div class="alert alert-success">
+    No pending staff registrations.
+</div>
+
+{% endif %}
+
+{% endblock %}

@@ -20,9 +20,8 @@ def create_admin():
             role=ROLE_ADMIN,
             approved=True,
             blacklisted=False,
-            password_hash="admin123",
         )
-
+        admin.set_password("admin123")
         db.session.add(admin)
         db.session.commit()
 
