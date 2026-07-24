@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}
+Staff Dashboard
+{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    Welcome {{ current_user.name }}
+</h2>
+
+<div class="card">
+
+    <div class="card-header">
+        <h4>My Assigned Treks</h4>
+    </div>
+
+    <div class="card-body">
+
+        {% if treks %}
+
+        <table class="table table-hover" table-striped align-middle">
+
+            <thead>
+
+                <tr>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Difficulty</th>
+                    <th>Slots</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for trek in treks %}
+
+                <tr>
+
+                    <td>{{ trek.name }}</td>
+                    <td>{{ trek.location }}</td>
+                    <td>{{ trek.difficulty }}</td>
+                    <td>{{ trek.available_slots }}/{{ trek.max_slots }}</td>
+                    <td>
+                        <td>
+
+                            <form
+                                method="POST"
+                                action="{{ url_for('staff.update_status', trek_id=trek.id) }}"
+                            >
+
+                            <select
+                                name="status"
+                                class="form-select form-select-sm"
+                            >
+
+                            <option value="Open"
+                            {% if trek.status=="Open" %}selected{% endif %}>
+                            Open
+                            </option>
+
+                            <option value="Closed"
+                            {% if trek.status=="Closed" %}selected{% endif %}>
+                            Closed
+                            </option>
+
+                            <option value="Completed"
+                            {% if trek.status=="Completed" %}selected{% endif %}>
+                            Completed
+                            </option>
+
+                            </select>
+
+                            <button class="btn btn-success btn-sm mt-2">
+                            Update
+                            </button>
+
+                            </form>
+
+                        </td>
+                    </td>
+                    <td>
+
+                    <a href="{{ url_for('staff.view_trekkers', trek_id=trek.id) }}"
+                       class="btn btn-primary btn-sm">
+
+                        View Trekkers
+
+                    </a>
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+        <div class="alert alert-info">
+            No treks assigned yet.
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

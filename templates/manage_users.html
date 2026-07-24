@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}
+Manage Users
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h2>Manage Users</h2>
+
+    <a href="{{ url_for('admin.admin_dashboard') }}"
+       class="btn btn-secondary">
+
+        ← Dashboard
+
+    </a>
+
+</div>
+<form method="GET" class="mb-3">
+
+    <div class="input-group">
+
+        <input
+            type="text"
+            name="search"
+            class="form-control"
+            placeholder="Search by Name, Email or ID"
+            value="{{ search }}"
+        >
+
+        <button class="btn btn-primary" type="submit">
+            Search
+        </button>
+
+        <a href="{{ url_for('admin.manage_users') }}"
+           class="btn btn-secondary">
+            Reset
+        </a>
+
+    </div>
+
+</form>
+
+<table class="table table-bordered table-hover" table-striped align-middle">
+
+    <thead>
+
+        <tr>
+
+            <th>Name</th>
+            <th>Email</th>
+            <th>Approved</th>
+            <th>Blacklisted</th>
+            <th>Action</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+    {% for user in users %}
+
+        <tr>
+
+            <td>{{ user.name }}</td>
+
+            <td>{{ user.email }}</td>
+
+            <td>
+
+                {% if user.approved %}
+            
+                    <span class="badge bg-success">
+                        Approved
+                    </span>
+            
+                {% else %}
+            
+                    <span class="badge bg-warning text-dark">
+                        Pending
+                    </span>
+            
+                {% endif %}
+
+            </td>
+
+            <td>
+
+                {% if user.blacklisted %}
+            
+                    <span class="badge bg-danger">
+                        Blacklisted
+                    </span>
+            
+                {% else %}
+            
+                    <span class="badge bg-success">
+                        Active
+                    </span>
+            
+                {% endif %}
+
+            </td>
+
+            <td>
+
+                {% if user.blacklisted %}
+
+                    <a href="{{ url_for('admin.activate_user',
+                        user_id=user.id) }}"
+                        class="btn btn-success btn-sm">
+
+                        Activate
+
+                    </a>
+
+                {% else %}
+
+                    <a href="{{ url_for('admin.blacklist_user',
+                        user_id=user.id) }}"
+                        class="btn btn-danger btn-sm">
+
+                        Blacklist
+
+                    </a>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

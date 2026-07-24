@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}
+All Bookings
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h2>All Bookings</h2>
+
+    <a href="{{ url_for('admin.admin_dashboard') }}"
+       class="btn btn-secondary">
+
+        ← Dashboard
+
+    </a>
+
+</div>
+
+<table class="table table-bordered table-hover" table-striped align-middle">
+
+    <thead>
+
+        <tr>
+
+            <th>User</th>
+            <th>Trek</th>
+            <th>Staff</th>
+            <th>Date</th>
+            <th>Booking</th>
+            <th>Payment</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+    {% for booking in bookings %}
+
+        <tr>
+
+            <td>{{ booking.user.name }}</td>
+
+            <td>{{ booking.trek.name }}</td>
+
+            <td>
+
+                {% if booking.trek.staff %}
+                    {{ booking.trek.staff.name }}
+                {% else %}
+                    Not Assigned
+                {% endif %}
+
+            </td>
+
+            <td>{{ booking.booking_date.strftime("%d-%m-%Y") }}</td>
+
+            <td>{{ booking.booking_status }}</td>
+
+            <td>{{ booking.payment_status }}</td>
+
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

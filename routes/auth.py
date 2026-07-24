@@ -45,12 +45,20 @@ def login():
             flash("Invalid email or password.", "danger")
             return redirect(url_for("auth.login"))
         
+        if user.blacklisted:
+            flash(
+                "Your account has been blacklisted. Contact the administrator.",
+                "danger"
+            )
+            return redirect(url_for("auth.login"))
+        
         if user.role == ROLE_STAFF and not user.approved:
             flash(
                 "Your account is waiting for Admin approval."
                 "warning"
             )
             return redirect(url_for("auth.login"))
+        
 
         login_user(user)
 
@@ -136,3 +144,4 @@ def logout():
     flash("Logged out successfully.", "success")
 
     return redirect(url_for("auth.login"))
+

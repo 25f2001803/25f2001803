@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}
+Trek History
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h2>Trek History</h2>
+
+    <a href="{{ url_for('admin.admin_dashboard') }}"
+       class="btn btn-secondary">
+        ← Dashboard
+    </a>
+
+</div>
+
+<table class="table table-bordered table-hover" table-striped align-middle">
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Staff</th>
+            <th>Bookings</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    {% for trek in treks %}
+
+        <tr>
+
+            <td>{{ trek.name }}</td>
+
+            <td>{{ trek.location }}</td>
+
+            <td>
+                {% if trek.staff %}
+                    {{ trek.staff.name }}
+                {% else %}
+                    Not Assigned
+                {% endif %}
+            </td>
+
+            <td>{{ trek.bookings|length }}</td>
+
+            <td>
+                <span class="badge bg-success">
+                    {{ trek.status }}
+                </span>
+            </td>
+
+        </tr>
+
+    {% else %}
+
+        <tr>
+            <td colspan="5" class="text-center">
+                No completed treks found.
+            </td>
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}
