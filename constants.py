@@ -7,6 +7,8 @@ ROLE_USER = "user"
 # Trek Status
 TREK_OPEN = "Open"
 TREK_CLOSED = "Closed"
+TREK_STARTED = "Started"
+TREK_ONGOING = "Ongoing"
 TREK_COMPLETED = "Completed"
 
 # Booking Status
