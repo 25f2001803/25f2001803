@@ -51,52 +51,29 @@ My Bookings
             <td>{{ booking.booking_date.strftime("%d-%m-%Y") }}</td>
 
             <td>
-
                 {% if booking.booking_status == "Booked" %}
-            
-                    <span class="badge bg-success">
-                        {{ booking.booking_status }}
-                    </span>
-            
+                    <span class="badge bg-success">Booked</span>
                 {% elif booking.booking_status == "Cancelled" %}
-            
-                    <span class="badge bg-danger">
-                        {{ booking.booking_status }}
-                    </span>
-            
+                    <span class="badge bg-danger">Cancelled</span>
+                {% elif booking.booking_status == "Completed" %}
+                    <span class="badge bg-primary">Completed</span>
                 {% else %}
-            
-                    <span class="badge bg-secondary">
-                        {{ booking.booking_status }}
-                    </span>
-            
+                    <span class="badge bg-secondary">{{ booking.booking_status }}</span>
                 {% endif %}
-
             </td>
 
             <td>
-
                 {% if booking.payment_status == "Pending" %}
-            
-                    <span class="badge bg-warning text-dark">
-                        Pending
-                    </span>
-            
+                    <span class="badge bg-warning text-dark">Pending</span>
                 {% elif booking.payment_status == "Paid" %}
-            
-                    <span class="badge bg-success">
-                        Paid
-                    </span>
-            
+                    <span class="badge bg-success">Paid</span>
+                {% elif booking.payment_status == "Failed" %}
+                    <span class="badge bg-danger">Failed</span>
                 {% else %}
-            
-                    <span class="badge bg-danger">
-                        Failed
-                    </span>
-            
+                    <span class="badge bg-secondary">{{ booking.payment_status }}</span>
                 {% endif %}
-
             </td>
+
 
             <td>
 

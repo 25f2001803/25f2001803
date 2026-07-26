@@ -16,6 +16,9 @@ User Dashboard
        class="btn btn-primary">
         My Bookings
     </a>
+    <a href="{{ url_for('user.user_profile') }}" class="btn btn-outline-primary">
+        My Profile
+    </a>
 
 </div>
 
@@ -82,6 +85,40 @@ User Dashboard
     
         </div>
 
+    </form>
+    <form method="GET" action="{{ url_for('user.user_dashboard') }}" class="row g-2 mb-4">
+        <div class="col-md-4">
+            <input
+                type="text"
+                name="search"
+                class="form-control"
+                placeholder="Search by trek name or location"
+                value="{{ search }}"
+            >
+        </div>
+    
+        <div class="col-md-3">
+            <select name="difficulty" class="form-select">
+                <option value="">All Difficulty</option>
+                <option value="Easy" {% if difficulty == "Easy" %}selected{% endif %}>Easy</option>
+                <option value="Moderate" {% if difficulty == "Moderate" %}selected{% endif %}>Moderate</option>
+                <option value="Hard" {% if difficulty == "Hard" %}selected{% endif %}>Hard</option>
+            </select>
+        </div>
+    
+        <div class="col-md-3">
+            <input
+                type="text"
+                name="location"
+                class="form-control"
+                placeholder="Filter by location"
+                value="{{ location }}"
+            >
+        </div>
+    
+        <div class="col-md-2 d-grid">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
     </form>
 
         <table class="table table-hover">

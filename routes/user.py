@@ -5,6 +5,7 @@ from constants import TREK_OPEN
 from models.booking import Booking
 from sqlalchemy import or_
 from extensions import db
+from models.user import User
 from constants import (
     BOOKING_BOOKED,
     PAYMENT_PENDING,
@@ -15,15 +16,16 @@ from constants import (
     BOOKING_CANCELLED,
     PAYMENT_PENDING,
 )
+from constants import ROLE_USER,TREK_OPEN
 
 user = Blueprint("user", __name__)
 
 @user.route("/user")
 @login_required
 def user_dashboard():
-
-    search = request.args.get("search", "")
-    difficulty = request.args.get("difficulty", "")
+    search = request.args.get("search", "").strip()
+    difficulty = request.args.get("difficulty", "").strip()
+    location = request.args.get("location", "").strip()
 
     query = Trek.query.filter_by(status=TREK_OPEN)
 
@@ -38,13 +40,17 @@ def user_dashboard():
     if difficulty:
         query = query.filter(Trek.difficulty == difficulty)
 
+    if location:
+        query = query.filter(Trek.location.ilike(f"%{location}%"))
+
     treks = query.all()
 
     return render_template(
         "user_dashboard.html",
         treks=treks,
         search=search,
-        difficulty=difficulty
+        difficulty=difficulty,
+        location=location
     )
 
 @user.route("/book/<int:trek_id>")
@@ -125,3 +131,40 @@ def cancel_booking(booking_id):
         flash("Booking cancelled successfully.", "success")
 
     return redirect(url_for("user.my_bookings"))
+
+@user.route("/user/profile", methods=["GET", "POST"])
+@login_required
+def user_profile():
+
+    if current_user.role != ROLE_USER:
+        return "Unauthorized", 403
+
+    if request.method == "POST":
+        name = request.form["name"].strip()
+        email = request.form["email"].strip()
+        password = request.form["password"]
+        confirm_password = request.form["confirm_password"]
+
+        existing_user = User.query.filter(
+            User.email == email,
+            User.id != current_user.id
+        ).first()
+
+        if existing_user:
+            flash("Email already exists.", "danger")
+            return redirect(url_for("user.user_profile"))
+
+        current_user.name = name
+        current_user.email = email
+
+        if password:
+            if password != confirm_password:
+                flash("Passwords do not match.", "danger")
+                return redirect(url_for("user.user_profile"))
+            current_user.set_password(password)
+
+        db.session.commit()
+        flash("Profile updated successfully!", "success")
+        return redirect(url_for("user.user_profile"))
+
+    return render_template("user_profile.html")
