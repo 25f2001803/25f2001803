@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,render_template
 from routes import auth, admin, staff, user
 from extensions import login_manager
 from models.user import User
@@ -28,6 +28,6 @@ def create_app():
 
     @app.route("/")
     def home():
-        return "<h1>Welcome to Trekking Management Application</h1>"
+        return render_template("index.html")
 
     return app
