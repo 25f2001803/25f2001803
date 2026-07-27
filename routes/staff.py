@@ -9,7 +9,9 @@ from constants import (
     TREK_CLOSED,
     TREK_STARTED,
     TREK_ONGOING,
-    TREK_COMPLETED
+    TREK_COMPLETED,
+    BOOKING_BOOKED,
+    BOOKING_COMPLETED
 )
 
 staff = Blueprint("staff", __name__)
@@ -71,37 +73,6 @@ def view_trekkers(trek_id):
         bookings=bookings
     )
 
-@staff.route("/trek/<int:trek_id>/status", methods=["POST"])
-@login_required
-def update_status(trek_id):
-
-    trek = Trek.query.get_or_404(trek_id)
-
-    if trek.staff_id != current_user.id:
-        return "Unauthorized", 403
-
-    status = request.form["status"]      # <-- FIRST create the variable
-
-    allowed_status = [
-        TREK_OPEN,
-        TREK_CLOSED,
-        TREK_STARTED,
-        TREK_ONGOING,
-        TREK_COMPLETED
-    ]
-
-    if status not in allowed_status:
-        flash("Invalid status.", "danger")
-        return redirect(url_for("staff.staff_dashboard"))
-
-    trek.status = status
-
-    db.session.commit()
-
-    flash("Trek status updated.", "success")
-
-    return redirect(url_for("staff.staff_dashboard"))
-
 @staff.route("/staff/profile", methods=["GET", "POST"])
 @login_required
 def staff_profile():
@@ -150,4 +121,39 @@ def update_slots(trek_id):
 
     flash("Available slots updated successfully.", "success")
 
+    return redirect(url_for("staff.staff_dashboard"))
+
+@staff.route("/trek/<int:trek_id>/status", methods=["POST"])
+@login_required
+def update_status(trek_id):
+
+    trek = Trek.query.get_or_404(trek_id)
+
+    if trek.staff_id != current_user.id:
+        return "Unauthorized", 403
+
+    status = request.form["status"]
+
+    allowed_status = [
+        TREK_OPEN,
+        TREK_CLOSED,
+        TREK_STARTED,
+        TREK_ONGOING,
+        TREK_COMPLETED
+    ]
+
+    if status not in allowed_status:
+        flash("Invalid status.", "danger")
+        return redirect(url_for("staff.staff_dashboard"))
+
+    trek.status = status
+
+    if status == TREK_COMPLETED:
+        for booking in trek.bookings:
+            if booking.booking_status == BOOKING_BOOKED:
+                booking.booking_status = BOOKING_COMPLETED
+
+    db.session.commit()
+
+    flash("Trek status updated.", "success")
     return redirect(url_for("staff.staff_dashboard"))

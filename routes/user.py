@@ -59,12 +59,14 @@ def book_trek(trek_id):
 
     trek = Trek.query.get_or_404(trek_id)
 
-    # Check if seats are available
+    if trek.status != TREK_OPEN:
+        flash("Bookings are only allowed for open treks.", "danger")
+        return redirect(url_for("user.user_dashboard"))
+
     if trek.available_slots <= 0:
         flash("No slots available for this trek.", "danger")
         return redirect(url_for("user.user_dashboard"))
 
-    # Check if the user has already booked this trek
     existing_booking = Booking.query.filter_by(
         user_id=current_user.id,
         trek_id=trek.id,
@@ -83,14 +85,10 @@ def book_trek(trek_id):
     )
 
     db.session.add(booking)
-
-    # Reduce available slots
     trek.available_slots -= 1
-
     db.session.commit()
 
     flash("Trek booked successfully!", "success")
-
     return redirect(url_for("user.user_dashboard"))
 
 @user.route("/my-bookings")

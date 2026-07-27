@@ -21,7 +21,7 @@ My Bookings
 
 {% if bookings %}
 
-<table class="table table-bordered table-hover" table-striped align-middle">
+<table class="table table-bordered table-hover table-striped align-middle">
 
     <thead>
 
@@ -33,6 +33,7 @@ My Bookings
             <th>Booking Status</th>
             <th>Payment</th>
             <th>Action</th>
+            <th>Trek Status</th>
 
         </tr>
 
@@ -94,6 +95,7 @@ My Bookings
                 {% endif %}
 
             </td>
+            <td>{{ booking.trek.status }}</td>
 
         </tr>
 
