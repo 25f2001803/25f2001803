@@ -1,0 +1,36 @@
+.auth-page{
+    width:100%;
+    min-height:calc(100vh - 56px);
+
+    background:
+        linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+        url("../images/login-register.jpg");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.auth-card{
+
+    width:430px;
+
+    padding:40px;
+
+    background:rgba(255,255,255,.15);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:20px;
+
+    border:1px solid rgba(255,255,255,.35);
+
+    box-shadow:0 10px 35px rgba(0,0,0,.35);
+
+    color:white;
+
+}

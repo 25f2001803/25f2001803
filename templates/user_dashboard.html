@@ -3,9 +3,16 @@
 {% block title %}
 User Dashboard
 {% endblock %}
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/user_dashboard.css') }}">
+{% endblock %}
 
-{% block content %}
+{% block full_page %}
 
+<div class="user-dashboard-page">
+
+    <div class="user-dashboard-container">
 <div class="d-flex justify-content-between align-items-center mb-4">
 
     <h2 class="mb-0">
@@ -224,6 +231,8 @@ User Dashboard
 
     </div>
 
+</div>
+    </div>
 </div>
 
 {% endblock %}

@@ -3,9 +3,16 @@
 {% block title %}
 My Bookings
 {% endblock %}
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/user_dashboard.css') }}">
+{% endblock %}
 
-{% block content %}
+{% block full_page %}
 
+<div class="user-dashboard-page">
+
+    <div class="user-dashboard-container">
 <div class="d-flex justify-content-between align-items-center mb-4">
 
     <h2>My Bookings</h2>
@@ -114,5 +121,6 @@ My Bookings
 </div>
 
 {% endif %}
-
+    </div>
+</div>
 {% endblock %}

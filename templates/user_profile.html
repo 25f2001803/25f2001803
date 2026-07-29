@@ -3,9 +3,16 @@
 {% block title %}
 My Profile
 {% endblock %}
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/user_dashboard.css') }}">
+{% endblock %}
 
-{% block content %}
+{% block full_page %}
 
+<div class="user-dashboard-page">
+
+    <div class="user-dashboard-container">
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>My Profile</h2>
@@ -40,5 +47,6 @@ My Profile
         <button type="submit" class="btn btn-success">Save Changes</button>
     </form>
 </div>
-
+    </div>
+</div>
 {% endblock %}

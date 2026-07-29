@@ -1,16 +1,21 @@
 {% extends "base.html" %}
-
 {% block title %}
 Login
 {% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block full_page %}
+{% endblock %}
+
 {% block content %}
 
-<div class="row justify-content-center">
+<div class="auth-page">
 
-    <div class="col-md-5">
-
-        <div class="card">
+    <div class="auth-card">
 
             <div class="card-header">
 
@@ -60,10 +65,10 @@ Login
 
             </div>
 
-        </div>
-
     </div>
 
 </div>
 
+{% endblock %}
+{% block end_full_page %}
 {% endblock %}

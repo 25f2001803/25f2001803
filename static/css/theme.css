@@ -1,0 +1,48 @@
+body {
+    margin: 0;
+    overflow-x: hidden;
+}
+
+body[data-theme="light"] {
+    --admin-bg: url("../images/admin.jpg");
+    --admin-overlay: rgba(255, 255, 255, 0.18);
+    --shell-bg: rgba(255, 255, 255, 0.82);
+    --shell-text: #111;
+}
+
+body[data-theme="dark"] {
+    --admin-bg: url("../images/admin_dark.jpg");
+    --admin-overlay: rgba(0, 0, 0, 0.40);
+    --shell-bg: rgba(20, 20, 20, 0.55);
+    --shell-text: #fff;
+}
+
+.admin-page {
+    min-height: calc(100vh - 56px);
+    background:
+        linear-gradient(var(--admin-overlay), var(--admin-overlay)),
+        var(--admin-bg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 2rem 0 3rem;
+}
+
+.admin-shell {
+    background: var(--shell-bg);
+    color: var(--shell-text);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+}
+
+body[data-theme="dark"] .admin-shell .card {
+    background: rgba(255, 255, 255, 0.10);
+    color: #fff;
+}
+
+body[data-theme="dark"] .admin-shell .table {
+    color: #fff;
+}

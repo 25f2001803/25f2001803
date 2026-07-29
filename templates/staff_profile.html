@@ -4,73 +4,87 @@
 My Profile
 {% endblock %}
 
-{% block content %}
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/staff_dashboard.css') }}">
+{% endblock %}
 
-<div class="container mt-4">
+{% block full_page %}
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+<div class="staff-dashboard-page">
 
-        <h2>My Profile</h2>
+<div class="dashboard-container">
 
-        <a href="{{ url_for('staff.staff_dashboard') }}"
-           class="btn btn-secondary">
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-            ← Back
+    <h2>My Profile</h2>
 
-        </a>
+    <a href="{{ url_for('staff.staff_dashboard') }}"
+       class="btn btn-secondary">
+
+        ← Back
+
+    </a>
+
+</div>
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<form method="POST">
+
+    <div class="mb-3">
+
+        <label class="form-label">Phone Number</label>
+
+        <input
+            type="text"
+            name="phone"
+            class="form-control"
+            value="{{ profile.phone }}">
 
     </div>
 
-    <form method="POST">
+    <div class="mb-3">
 
-        <div class="mb-3">
+        <label class="form-label">Experience (Years)</label>
 
-            <label class="form-label">Phone Number</label>
+        <input
+            type="number"
+            name="experience"
+            class="form-control"
+            value="{{ profile.experience }}"
+            min="0">
 
-            <input
-                type="text"
-                name="phone"
-                class="form-control"
-                value="{{ profile.phone }}"
-            >
+    </div>
 
-        </div>
+    <div class="mb-3">
 
-        <div class="mb-3">
+        <label class="form-label">Bio</label>
 
-            <label class="form-label">Experience (Years)</label>
+        <textarea
+            name="bio"
+            class="form-control"
+            rows="5">{{ profile.bio }}</textarea>
 
-            <input
-                type="number"
-                name="experience"
-                class="form-control"
-                value="{{ profile.experience }}"
-                min="0"
-            >
+    </div>
 
-        </div>
+    <button
+        type="submit"
+        class="btn btn-success">
 
-        <div class="mb-3">
+        Save Changes
 
-            <label class="form-label">Bio</label>
+    </button>
 
-            <textarea
-                name="bio"
-                class="form-control"
-                rows="5"
-            >{{ profile.bio }}</textarea>
+</form>
 
-        </div>
+</div>
 
-        <button
-            type="submit"
-            class="btn btn-success">
+</div>
 
-            Save Changes
-
-        </button>
-
-    </form>
+</div>
 
 </div>
 

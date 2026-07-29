@@ -6,9 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
     <title>{% block title %}Trekking Management{% endblock %}</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        {% block extra_css %}
+        {% endblock %}
+    
     <style>
 
         .hero{
@@ -62,7 +67,6 @@
             font-size:20px;
         
         }
-        <style>
 
             body{
                 margin:0;
@@ -136,7 +140,6 @@
             
             }
             
-        </style>
     </style>
 </head>
 
@@ -147,6 +150,7 @@
     "auth.login",
     "auth.register"
 ] %}
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
 
@@ -225,6 +229,7 @@
 {% block end_full_page %}
 </div>
 {% endblock %}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js">    
+</script>
 </body>
 </html>
