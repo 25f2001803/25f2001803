@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block title %}
+Manage Staff
+{% endblock %}
+{% block full_page %}
+{% endblock %}
+{% block content %}
+
+
+<style>
+    .admin-page {
+        min-height: calc(100vh - 56px);
+        background:
+            linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)),
+            url("{{ url_for('static', filename='images/admin.jpg') }}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        padding: 2rem 0 3rem;
+    }
+
+    .admin-box {
+        background: rgba(255, 255, 255, 0.92);
+        border-radius: 18px;
+        padding: 1.5rem;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22);
+    }
+
+    .admin-box .table {
+        margin-bottom: 0;
+    }
+</style>
+
+<div class="admin-page">
+    <div class="container">
+        <div class="admin-box">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <h2>Manage Staff</h2>
+
+                <a href="{{ url_for('admin.admin_dashboard') }}"
+                   class="btn btn-secondary">
+
+                    ← Dashboard
+
+                </a>
+
+            </div>
+
+            <form method="GET" class="mb-3">
+
+                <div class="input-group">
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="search"
+                        placeholder="Search by Name, Email or ID"
+                        value="{{ search }}"
+                    >
+
+                    <button class="btn btn-primary" type="submit">
+                        Search
+                    </button>
+
+                    <a href="{{ url_for('admin.manage_staff') }}"
+                       class="btn btn-secondary">
+                        Reset
+                    </a>
+
+                </div>
+
+            </form>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Approved</th>
+                            <th>Blacklisted</th>
+                            <th>Assigned Trek</th>
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    {% for staff in staff_members %}
+
+                        <tr>
+
+                            <td>{{ staff.name }}</td>
+
+                            <td>{{ staff.email }}</td>
+
+                            <td>
+
+                                {% if staff.approved %}
+                                    <span class="badge bg-success">Approved</span>
+                                {% else %}
+                                    <span class="badge bg-warning text-dark">Pending</span>
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+
+                                {% if staff.blacklisted %}
+                                    <span class="badge bg-danger">Blacklisted</span>
+                                {% else %}
+                                    <span class="badge bg-success">Active</span>
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+
+                                {% if staff.assigned_treks %}
+
+                                    {{ staff.assigned_treks[0].name }}
+
+                                {% else %}
+
+                                    Not Assigned
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+
+                                {% if staff.blacklisted %}
+
+                                    <a href="{{ url_for('admin.activate_staff', user_id=staff.id) }}"
+                                       class="btn btn-success btn-sm">
+
+                                        Activate
+
+                                    </a>
+
+                                {% else %}
+
+                                    <a href="{{ url_for('admin.blacklist_staff', user_id=staff.id) }}"
+                                       class="btn btn-danger btn-sm">
+
+                                        Blacklist
+
+                                    </a>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block end_full_page %}
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}
+Login
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block full_page %}
+{% endblock %}
+
+{% block content %}
+
+<div class="auth-page">
+
+    <div class="auth-card">
+
+            <div class="card-header">
+
+                <h3>Login</h3>
+
+            </div>
+
+            <div class="card-body">
+
+                <form method="POST" action="/login">
+
+                    <div class="mb-3">
+
+                        <label>Email</label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            class="form-control"
+                            placeholder="Enter Email"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label>Password</label>
+
+                        <input
+                            type="password"
+                            name="password"
+                            class="form-control"
+                            placeholder="Password"
+                            required
+                        >
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+
+                        Login
+
+                    </button>
+
+                </form>
+
+            </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+{% block end_full_page %}
+{% endblock %}

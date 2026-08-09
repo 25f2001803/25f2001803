@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+
+{% block title %}
+Staff Dashboard
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/staff_dashboard.css') }}">
+{% endblock %}
+
+{% block full_page %}
+
+<div class="staff-dashboard-page">
+
+<div class="dashboard-container">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h2 class="mb-0">Staff Dashboard</h2>
+
+    <a href="{{ url_for('staff.staff_profile') }}"
+       class="btn btn-primary">
+        My Profile
+    </a>
+
+</div>
+
+<div class="row g-4 mb-4">
+
+    <div class="col-md-3">
+        <div class="card stats-card text-center shadow-sm">
+            <div class="card-body">
+                <h6>Assigned Treks</h6>
+                <h2>{{ assigned_treks }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card stats-card text-center shadow-sm">
+            <div class="card-body">
+                <h6>Registered Trekkers</h6>
+                <h2>{{ registered_trekkers }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card stats-card text-center shadow-sm">
+            <div class="card-body">
+                <h6>Open Treks</h6>
+                <h2>{{ open_treks }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card stats-card text-center shadow-sm">
+            <div class="card-body">
+                <h6>Completed Treks</h6>
+                <h2>{{ completed_treks }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header bg-dark text-white">
+        <h4 class="mb-0">My Assigned Treks</h4>
+    </div>
+
+    <div class="card-body">
+
+    {% if treks %}
+
+    <table class="table table-hover table-striped align-middle">
+
+        <thead>
+
+            <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Difficulty</th>
+                <th>Available Slots</th>
+                <th>Status</th>
+                <th>Trekkers</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for trek in treks %}
+
+        <tr>
+
+            <td>{{ trek.name }}</td>
+
+            <td>{{ trek.location }}</td>
+
+            <td>{{ trek.difficulty }}</td>
+
+            <td>
+
+                <form method="POST"
+                      action="{{ url_for('staff.update_slots', trek_id=trek.id) }}">
+
+                    <div class="input-group input-group-sm">
+
+                        <input
+                            type="number"
+                            class="form-control"
+                            name="available_slots"
+                            value="{{ trek.available_slots }}"
+                            min="0"
+                            max="{{ trek.max_slots }}">
+
+                        <button
+                            class="btn btn-success"
+                            type="submit">
+
+                            Save
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+                <small class="text-muted">
+
+                    Max : {{ trek.max_slots }}
+
+                </small>
+
+            </td>
+
+            <td>
+
+                <form
+                    method="POST"
+                    action="{{ url_for('staff.update_status', trek_id=trek.id) }}">
+
+                    <select
+                        name="status"
+                        class="form-select form-select-sm">
+
+                        <option value="Open"
+                            {% if trek.status=="Open" %}selected{% endif %}>
+                            Open
+                        </option>
+
+                        <option value="Started"
+                            {% if trek.status=="Started" %}selected{% endif %}>
+                            Started
+                        </option>
+
+                        <option value="Ongoing"
+                            {% if trek.status=="Ongoing" %}selected{% endif %}>
+                            Ongoing
+                        </option>
+
+                        <option value="Completed"
+                            {% if trek.status=="Completed" %}selected{% endif %}>
+                            Completed
+                        </option>
+
+                        <option value="Closed"
+                            {% if trek.status=="Closed" %}selected{% endif %}>
+                            Closed
+                        </option>
+
+                    </select>
+
+                    <button
+                        class="btn btn-success btn-sm mt-2">
+
+                        Update
+
+                    </button>
+
+                </form>
+
+            </td>
+
+            <td>
+
+                <a
+                    href="{{ url_for('staff.view_trekkers', trek_id=trek.id) }}"
+                    class="btn btn-primary btn-sm">
+
+                    View Trekkers
+
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    {% else %}
+
+    <div class="alert alert-info mb-0">
+
+        No treks assigned yet.
+
+    </div>
+
+    {% endif %}
+
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

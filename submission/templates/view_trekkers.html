@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}
+View Trekkers
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/staff_dashboard.css') }}">
+{% endblock %}
+
+{% block full_page %}
+
+<div class="staff-dashboard-page">
+
+<div class="dashboard-container">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h2>{{ trek.name }} - Trekkers</h2>
+
+    <a href="{{ url_for('staff.staff_dashboard') }}"
+       class="btn btn-secondary">
+        ← Back
+    </a>
+
+</div>
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<table class="table table-bordered table-hover table-striped align-middle">
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Booking Status</th>
+            <th>Payment Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for booking in bookings %}
+
+        <tr>
+            <td>{{ booking.user.name }}</td>
+            <td>{{ booking.user.email }}</td>
+            <td>{{ booking.booking_status }}</td>
+            <td>{{ booking.payment_status }}</td>
+        </tr>
+
+        {% else %}
+
+        <tr>
+            <td colspan="4" class="text-center">
+                No trekkers have booked this trek yet.
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

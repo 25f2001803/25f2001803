@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Dashboard
+{% endblock %}
+
+{% block full_page %}
+{% endblock %}
+{% block content %}
+
+<style>
+    .admin-page {
+        min-height: calc(100vh - 56px);
+        background:
+            linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)),
+            url("{{ url_for('static', filename='images/admin.jpg') }}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        padding: 2rem 0;
+    }
+
+    .admin-box {
+        background: rgba(255, 255, 255, 0.90);
+        border-radius: 18px;
+        padding: 1.5rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+</style>
+
+<div class="admin-page">
+    <div class="container">
+        <div class="admin-box">
+
+            <h2 class="mb-4">Admin Dashboard</h2>
+
+            <div class="row mb-4">
+
+                <div class="col-md-3">
+                    <div class="card text-center shadow-sm">
+                        <div class="card-body">
+                            <h6>Total Treks</h6>
+                            <h2>{{ total_treks }}</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card text-center shadow-sm">
+                        <div class="card-body">
+                            <h6>Total Users</h6>
+                            <h2>{{ total_users }}</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card text-center shadow-sm">
+                        <div class="card-body">
+                            <h6>Total Staff</h6>
+                            <h2>{{ total_staff }}</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card text-center shadow-sm">
+                        <div class="card-body">
+                            <h6>Total Bookings</h6>
+                            <h2>{{ total_bookings }}</h2>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mb-4">
+                <a href="{{ url_for('admin.manage_treks') }}" class="btn btn-primary">Manage Treks</a>
+                <a href="{{ url_for('admin.manage_users') }}" class="btn btn-success">Manage Users</a>
+                <a href="{{ url_for('admin.manage_staff') }}" class="btn btn-warning">Manage Staff</a>
+                <a href="{{ url_for('admin.view_bookings') }}" class="btn btn-dark">View Bookings</a>
+                <a href="{{ url_for('admin.trek_history') }}" class="btn btn-success">Trek History</a>
+            </div>
+
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    Pending Staff Approval
+                </div>
+
+                <div class="card-body">
+
+                    {% if pending_staff %}
+
+                    <table class="table table-hover table-striped align-middle">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th width="150">Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for staff in pending_staff %}
+                            <tr>
+                                <td>{{ staff.name }}</td>
+                                <td>{{ staff.email }}</td>
+                                <td>
+                                    <a href="{{ url_for('admin.approve_staff', user_id=staff.id) }}"
+                                       class="btn btn-success btn-sm">
+                                        Approve
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    {% else %}
+
+                    <div class="alert alert-success mb-0">
+                        No pending staff registrations.
+                    </div>
+
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block end_full_page %}
+{% endblock %}

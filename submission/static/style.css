@@ -1,0 +1,50 @@
+.dashboard-card{
+    min-height:180px;
+    border-radius:15px;
+}
+
+/* Dashboard Cards */
+
+.dashboard-card{
+    min-height:180px;
+    border-radius:18px;
+    border:none;
+    transition:0.3s ease;
+    cursor:pointer;
+}
+
+.dashboard-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 35px rgba(0,0,0,.2);
+}
+
+.card-primary{
+    background:linear-gradient(135deg,#4f46e5,#7c3aed);
+    color:white;
+}
+
+.card-success{
+    background:linear-gradient(135deg,#059669,#10b981);
+    color:white;
+}
+
+.card-warning{
+    background:linear-gradient(135deg,#f59e0b,#fbbf24);
+    color:white;
+}
+
+.card-dark{
+    background:linear-gradient(135deg,#1f2937,#374151);
+    color:white;
+}
+
+.dashboard-card h1{
+    font-size:3rem;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+.dashboard-card i{
+    font-size:2.4rem;
+    margin-bottom:10px;
+}

@@ -1,0 +1,58 @@
+.dashboard-page{
+    min-height: calc(100vh - 56px);
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,.35),
+            rgba(0,0,0,.35)
+        ),
+        url("../images/staff.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    padding:40px;
+}
+.dashboard-card{
+
+    background:rgba(255,255,255,.93);
+
+    border-radius:25px;
+
+    padding:35px;
+
+    box-shadow:0 10px 35px rgba(0,0,0,.35);
+
+}
+.stats-card{
+
+    border:none;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+
+    transition:.25s;
+
+}
+
+.stats-card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.stats-card h6{
+
+    color:#666;
+
+}
+
+.stats-card h2{
+
+    font-weight:bold;
+
+}

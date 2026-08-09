@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}
+Trekking Management
+{% endblock %}
+
+{% block full_page %}
+{% endblock %}
+
+{% block content %}
+
+<div class="landing-page">
+
+    <div class="glass-card">
+
+        <h1 class="display-3 fw-bold">
+            Trekking Management
+        </h1>
+
+        <p class="lead mt-3 mb-4">
+            Explore breathtaking mountains, book unforgettable adventures,
+            and manage every trek effortlessly.
+        </p>
+
+        <div class="d-flex justify-content-center gap-3">
+
+            <a href="{{ url_for('auth.login') }}"
+               class="btn btn-primary btn-lg px-4">
+
+                <i class="bi bi-box-arrow-in-right"></i>
+                Login
+
+            </a>
+
+            <a href="{{ url_for('auth.register') }}"
+               class="btn btn-success btn-lg px-4">
+
+                <i class="bi bi-person-plus"></i>
+                Register
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block end_full_page %}
+{% endblock %}

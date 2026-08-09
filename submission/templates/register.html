@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}
+Register
+{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block full_page %}
+{% endblock %}
+
+{% block content %}
+
+<div class="auth-page">
+
+    <div class="auth-card">
+
+            <div class="card-header">
+                <h3>Register</h3>
+            </div>
+
+            <div class="card-body">
+
+                <form method="POST" action="/register">
+
+                    <div class="mb-3">
+                        <label>Name</label>
+                        <input
+                            type="text"
+                            name="name"
+                            class="form-control"
+                            placeholder="Enter Name"
+                        >
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <input
+                            type="email"
+                            name="email"
+                            class="form-control"
+                            placeholder="Enter Email"
+                        >
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Password</label>
+                        <input
+                            type="password"
+                            name="password"
+                            class="form-control"
+                            placeholder="Enter Password"
+                        >
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Confirm Password</label>
+                        <input
+                            type="password"
+                            name="confirm_password"
+                            class="form-control"
+                            placeholder="Confirm Password"
+                            required
+                        >
+                    </div>
+                    <div class="mb-3">
+                        <label>Register As</label>
+                        <select name="role" class="form-control" required>
+                            <option value="user">Trekker</option>
+                            <option value="staff">Trek Staff</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-primary w-100">
+                        Register
+                    </button>
+
+                </form>
+
+            </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+{% block end_full_page %}
+{% endblock %}
